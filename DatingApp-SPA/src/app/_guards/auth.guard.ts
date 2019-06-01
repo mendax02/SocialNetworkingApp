@@ -15,7 +15,7 @@ export class AuthGuard implements CanActivate {
     if (this.authService.loggedIn()) {
       return true;
     }
-    this.alertify.error('Access denied!! Re-routing to home page!');
+    this.alertify.error('Access denied. Re-routing to home page!');
     this.router.navigate(['/home']);
     return false;
   }
