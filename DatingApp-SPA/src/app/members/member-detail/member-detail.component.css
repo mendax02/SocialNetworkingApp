@@ -16,3 +16,6 @@
 .btn {
     padding: 5px 5px;   
 }
+.empty-value {
+    color:rgb(97, 8, 8);
+}
