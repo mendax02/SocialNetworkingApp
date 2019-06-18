@@ -1,10 +1,11 @@
+<div>
 <div class="text-center mt-3">
     <h2>Your matches - {{pagination.totalItems}} found</h2>
   </div>
 
 <div class="container mt-3">
 
-      <form class="form-inline" #form="ngForm" (ngSubmit)="loadUsers()" novalidate>
+      <form class="form-inline" #form="ngForm" (ngSubmit)="applyFilters()" novalidate>
           <div class="form-group">
             <label for="minAge">Age From</label>
             <input type="number" class="form-control ml-1" style="width: 70px" id="minAge" name="minAge"
@@ -14,7 +15,8 @@
           <div class="form-group px-2">
             <label for="maxAge">Age To</label>
             <input type="number" class="form-control ml-1" style="width: 70px" id="maxAge" name="maxAge"
-            [(ngModel)]="userParams.maxAge">
+            [(ngModel)]="userParams.maxAge" [ngClass]="{'custom-wrong-input': userParams.minAge > userParams.maxAge}">
+            
           </div>
         
           <div class="form-group px-2">
@@ -26,15 +28,16 @@
               </option>
             </select>
           </div>
-          <button type="submit" class="btn btn-primary" style="margin-left:10px">Apply Filters</button>
-          <button type="button" class="btn btn-info" (click)="resetFilters()" style="margin-left:10px">Reset Filter</button>
+          <button type="submit" class="btn btn-primary" style="margin-left:10px" [disabled]="userParams.minAge > userParams.maxAge">Apply Filters</button>
+          <button type="button" class="btn btn-info" (click)="resetFilters($event)" style="margin-left:10px">Reset Filter</button>
         
           <div class="col">
-              <div class="btn-group float-right">
+              <div class="btn-group float-center">
                 <button type="button" name="orderBy" class="btn btn-primary"
-                  [(ngModel)]="userParams.orderBy" (click)="loadUsers()" btnRadio="lastActive">Last Active</button>
-                <button type="button" name="orderBy" class="btn btn-primary"
-                  [(ngModel)]="userParams.orderBy" (click)="loadUsers()" btnRadio="created">Newest Members</button>
+                  [(ngModel)]="userParams.orderBy" (click)="loadUsers()" btnRadio="lastActive" style="margin-right:10px"
+                  [disabled]="userParams.minAge > userParams.maxAge || userParams.minAge === null || userParams.maxAge === null">Last Active</button>
+                <button type="button" name="orderBy" class="btn btn-primary" 
+                  [(ngModel)]="userParams.orderBy" (click)="loadUsers()" btnRadio="created"[disabled]="">Newest Members</button>
               </div>
             </div>
         </form>
@@ -52,6 +55,7 @@
               [itemsPerPage]="pagination.itemsPerPage"
               [(ngModel)]="pagination.currentPage"
               (pageChanged)="pageChanged($event)"
-              previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;">
+              previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;" [disabled]="userParams.minAge > userParams.maxAge || userParams.minAge === null || userParams.maxAge === null">
  </pagination>
+</div>
 </div>
