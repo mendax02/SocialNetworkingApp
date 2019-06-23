@@ -47,7 +47,7 @@ export class MemberListComponent implements OnInit {
   }
 
   applyFilters() {
-    this.pagination.currentPage =1;
+    this.pagination.currentPage = 1;
     this.loadUsers();
   }
 
